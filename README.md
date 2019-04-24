@@ -21,16 +21,16 @@ The USB/adapter device will henceforth be referred to as ttyUSB0, so make the ap
 
 We first begin by erasing the flash memory of the module using the Python package esptool. This requires Python 2.7 or Python 3.4 (or higher) to compile, and can be downloaded through pip using the terminal command
 
-> 'pip install esptool'
+> `pip install esptool`
 
 Now we can erase the flash memory of the module via the terminal command
 
-> 'sudo -E env "PATH=$PATH" esptool.py --port /dev/ttyUSB0 erase_flash'
+> `sudo -E env "PATH=$PATH" esptool.py --port /dev/ttyUSB0 erase_flash`
 
 One issue I had on several machines was "A fatal error occurred.. Timed out waiting for packet header". If you receive this error, simply unplug and plug the device back into the usb port. This sometimes changes the ttyUSB number, so check and run again. You should see "Detecting chip type... Hard resetting..." 
 
 Now we need to download the <a href="https://micropython.org/download#esp8266">Micropython firmware</a>. In my case, I will use the most recent stable build, namely esp8266-20190125-v1.10.bin. Change directory to where you downloaded the .bin file to, and run the terminal command
 
-> 'sudo -E env "PATH=$PATH" esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_size=detect 0 esp8266-20190125-v1.10.bin'
+> `sudo -E env "PATH=$PATH" esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_size=detect 0 esp8266-20190125-v1.10.bin`
 
 If you receive "A fetal error occurred.. Timed out" message again, once again unplug and plug the device back in and run the above line again. You should see "Detecting chip type.. Hard resetting.."
