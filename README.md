@@ -2,7 +2,7 @@
 This read-me file provides a detailed description of flashing and using the ESP-01S (ESP-8266) module as a stand-alone microcontroller.  
 
 ## Introduction
-The ESP-01S is a WiFi serial transceiver module (contains an ESP-8266 microchip) with 1MB of flash memory (the dimensions and pinout can be found here <-- put link). In particular, it is a lightweight and cheap method for home automation and DIY projects with its two GPIO pins. 
+The ESP-01S is a WiFi serial transceiver module (contains an ESP-8266 microchip) with 1MB of flash memory (the dimensions and pinout can be found [here](https://github.com/hallb2/ESP01S/blob/master/Pictures/ESP-01S%20Pin%20Layout.jpeg). In particular, it is a lightweight and cheap method for home automation and DIY projects with its two GPIO pins. 
 
 ## Preface
 This walkthrough assumes the user has a basic Linux distro such as Ubuntu. Walkthroughs for Windows and Mac operating systems are still being tested. 
