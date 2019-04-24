@@ -33,4 +33,12 @@ Now we need to download the <a href="https://micropython.org/download#esp8266">M
 
 > `sudo -E env "PATH=$PATH" esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_size=detect 0 esp8266-20190125-v1.10.bin`
 
-If you receive "A fetal error occurred.. Timed out" message again, once again unplug and plug the device back in and run the above line again. You should see "Detecting chip type.. Hard resetting.."
+If you receive "A fatal error occurred.. Timed out" message again, once again unplug and plug the device back in and run the above line again. You should see "Detecting chip type.. Hard resetting.."
+
+## Accessing Micropython Through Ampy and Picocom
+
+Ampy (Adafruit Micropython Tool) is a utility we will use to interact with Micropython over the serial connection. We can download Ampy through the commmand line, namely
+
+> 'pip3 install --user adafruit-ampy'
+
+Picocom is a minimal dumb-terminal emulation program that will be used to 
