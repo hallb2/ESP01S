@@ -5,7 +5,7 @@ This read-me file provides a detailed description of flashing and using the ESP-
 The ESP-01S is a WiFi serial transceiver module (contains an ESP-8266 microchip) with 1MB of flash memory (the dimensions and pinout can be found [here](https://github.com/hallb2/ESP01S/blob/master/Pictures/ESP-01S%20Pin%20Layout.jpeg)). In particular, it is a lightweight and cheap method for home automation and DIY projects with its two GPIO pins. 
 
 ## Preface
-This walkthrough assumes the user has a basic Linux distro such as Ubuntu. Walkthroughs for Windows and Mac operating systems are still being tested. 
+This walkthrough assumes the user has a basic Linux distro such as Ubuntu, as well as Python 3.4 or higher with pip3 installer. Walkthroughs for Windows and Mac operating systems are still being tested. 
 
 ## Materials Used 
 - ESP-01S Module: [Pack of 5 on Amazon](https://www.amazon.com/DIYmall-ESP8266-ESP-01S-Serial-Transceiver/dp/B07LBD33NT/ref=sr_1_6?crid=1KOD0CXA9RMBZ&keywords=diymall+esp8266&qid=1556118754&s=electronics&sprefix=DIYmall+esp%2Cbeauty%2C132&sr=1-6)
@@ -21,24 +21,24 @@ The USB/adapter device will henceforth be referred to as ttyUSB0, so make the ap
 
 We first begin by erasing the flash memory of the module using the Python package esptool. This requires Python 2.7 or Python 3.4 (or higher) to compile, and can be downloaded through pip using the terminal command
 
-> `pip install esptool`
+> `sudo -H pip3 install esptool`
 
 Now we can erase the flash memory of the module via the terminal command
 
-> `sudo -E env "PATH=$PATH" esptool.py --port /dev/ttyUSB0 erase_flash`
+> `sudo esptool.py --port /dev/ttyUSB0 erase_flash`
 
 One issue I had on several machines was "A fatal error occurred.. Timed out waiting for packet header". If you receive this error, simply unplug and plug the device back into the usb port. This sometimes changes the ttyUSB number, so check and run again. You should see "Detecting chip type... Hard resetting..." 
 
 Now we need to download the <a href="https://micropython.org/download#esp8266">Micropython firmware</a>. In my case, I will use the most recent stable build, namely esp8266-20190125-v1.10.bin. Change directory to where you downloaded the .bin file to, and run the terminal command
 
-> `sudo -E env "PATH=$PATH" esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_size=detect 0 esp8266-20190125-v1.10.bin`
+> `sudo esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_size=detect 0 esp8266-20190125-v1.10.bin`
 
-If you receive "A fatal error occurred.. Timed out" message again, once again unplug and plug the device back in and run the above line again. You should see "Detecting chip type.. Hard resetting.."
+If you receive "A fatal error occurred.. Timed out" message again, once again unplug and plug the device back in and run the above line again. You should see "Detecting chip type.. Hard resetting.." Finally, remove the usb adapter from the port, toggle the switch from PROG to UART, and plug the adapter back in.
 
 ## Accessing Micropython Through Ampy and Picocom
 
-Ampy (Adafruit Micropython Tool) is a utility we will use to interact with Micropython over the serial connection. We can download Ampy through the commmand line, namely
+[Ampy (Adafruit Micropython Tool)](https://github.com/pycampers/ampy) is a utility we will use to interact with Micropython over the serial connection. We can download Ampy through the commmand line, namely
 
-> 'pip3 install --user adafruit-ampy'
+> 'sudo -H pip3 install --user adafruit-ampy'
 
 Picocom is a minimal dumb-terminal emulation program that will be used to 
