@@ -1,3 +1,5 @@
+sudo -H pip install esptool
+
 adapter_location="$(dmesg | grep uart | grep attached | tail -1 | awk 'NF{print $NF; exit}')"
 
 echo $adapter_location
