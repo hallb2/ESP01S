@@ -25,7 +25,7 @@ upload_micropython()
     echo -e "\nUnplug the adapter and toggle the switch from PROG to UART. Plug adapter back in. Press enter to continue."
     read enter
 
-    sudo ampy -b 115200 --port /dev/$adapter_location put boot.py
+    # sudo ampy -b 115200 --port /dev/$adapter_location put boot.py
 }
 
 connect()
@@ -41,11 +41,14 @@ connect()
         echo -e "\nCreate password for access point:"
         read -s password
 
-        sed -i 's/<AP_NAME>/'$name'/g' bootAP.py 
-        sed -i 's/<password>/'$password'/g' bootAP.py 
+        sed -e 's/<AP_NAME>/'$name'/g' -e 's/<password>/'$password'/g' bootAP.py > boot.py
         
-        sudo ampy -b 115200 --port /dev/$adapter_location put bootAP.py boot.py 
-    
+        sudo ampy -b 115200 --port /dev/$adapter_location put boot.py 
+	
+	rm boot.py
+
+	sudo picocom -b 115200 /dev/$adapter_location
+
     elif [ "$access" == "ST" ]
     then
         echo -e "\nType wifi name:"
@@ -63,6 +66,7 @@ connect()
         connect
     fi
 
+    # sudo ampy -b 115200 --port /dev/$adapter_location reset
 
 }
 
@@ -93,5 +97,3 @@ fi
 
 
 
-# Get boot.py from ESP-01S
-# sudo ampy -b 115200 --port /dev/$adapter_location get boot.py boot.py
